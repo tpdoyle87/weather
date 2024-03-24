@@ -28,7 +28,6 @@ module WeatherMachine
     end
 
     def build_forecast(forecast_data)
-      # Assume the first period has the current temperature
       current_period = forecast_data['properties']['periods'].first
       forecast[:current_temperature] = {
         temperature: current_period['temperature'],
@@ -82,7 +81,7 @@ module WeatherMachine
     end
 
     def build_current_day(forecast, high_period, low_period)
-      forecast[:next_seven_days] << build_high_temp(high_period)
+      forecast[:next_seven_days] << build_high_temp(high_period, 'Today')
       forecast[:next_seven_days].last.merge!(build_low_temp(low_period))
     end
 
@@ -103,9 +102,9 @@ module WeatherMachine
       }
     end
 
-    def build_high_temp(period)
+    def build_high_temp(period, name=nil)
       {
-        day: period['name'],
+        day: name.presence || period['name'],
         highTemperature: period['temperature'],
         highTemperatureUnit: period['temperatureUnit']
       }
