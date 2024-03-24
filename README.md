@@ -15,8 +15,10 @@ This Rails application provides real-time weather forecasts based on user-submit
 
 ## Setup
 1. Clone the repository.
-```git clone ```
-2. 
+```git clone git@github.com:tpdoyle87/weather.git ```
+2. install dependencies.
+```bundle install```
+3. 
 
 * System dependencies
 
