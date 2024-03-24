@@ -1,11 +1,22 @@
-# README
+# Weather Forcast App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Overview
+This Rails application provides real-time weather forecasts based on user-submitted addresses. Utilizing the GeocodingService to convert addresses into geographic coordinates and the WeatherForecastService to fetch weather data, it offers a streamlined way to access weather information.
 
-Things you may want to cover:
+## Features
+- **Geocoding**: Converts street addresses into latitude and longitude.
+- **Weather Forecasting**: Retrieves weather forecasts using geocoded coordinates.
+- **Caching**: Improves response times and reduces external API calls by caching weather data.
 
-* Ruby version
+## Pre-requisites
+- **Ruby**: 3.2.2
+- **Rails**: 7.1.2
+- **Bundler**: 2.4.10
+
+## Setup
+1. Clone the repository.
+```git clone ```
+2. 
 
 * System dependencies
 

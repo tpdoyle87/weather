@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+# rubocop:disable RSpec/MultipleMemoizedHelpers, RSpec/AnyInstance, RSpec/FilePath, RSpec/SpecFilePathFormat
 
 RSpec.describe WeatherForecastService do
   describe '.fetch_forecast' do
@@ -42,3 +43,4 @@ RSpec.describe WeatherForecastService do
     end
   end
 end
+# rubocop:enable RSpec/MultipleMemoizedHelpers, RSpec/AnyInstance, RSpec/FilePath, RSpec/SpecFilePathFormat
