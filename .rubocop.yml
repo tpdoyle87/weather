@@ -1,0 +1,17 @@
+require:
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'db/schema.rb'
+    - 'bin/**/*'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+
+# Example of overriding a specific cop
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
