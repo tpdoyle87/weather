@@ -53,7 +53,9 @@ RSpec.describe WeatherMachine::WeatherFetcherService, type: :service do
       end
 
       it 'raises a descriptive error for server issues' do
-        expect { service.call }.to raise_error(StandardError, /Something went wrong when requesting the weather details/)
+        expect do
+          service.call
+        end.to raise_error(StandardError, /Something went wrong when requesting the weather details/)
       end
     end
   end

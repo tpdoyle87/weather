@@ -34,6 +34,7 @@ module WeatherMachine
         unit: current_period['temperatureUnit']
       }
       not_current_day_index = first_daily_forecast_index(forecast_data)
+
       build_current_day_forecast(forecast_data, not_current_day_index, forecast)
       forecast_for_week(forecast_data, not_current_day_index, forecast)
     end
