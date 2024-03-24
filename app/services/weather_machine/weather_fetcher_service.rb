@@ -19,9 +19,9 @@ module WeatherMachine
 
     def call
       # returns an object containing the endpoints for the nearby weather stations and forecast.
-      local_grid = fetch_grid
+      local_grid = fetch_data("https://api.weather.gov/points/#{latitude},#{longitude}")
       # returns the forecast data for the next 7 days.
-      forecast_data = fetch_seven_day_forecast(local_grid)
+      forecast_data = fetch_data(local_grid['properties']['forecast'])
       # builds the forecast object with the current temperature and the high and low temperatures for the next 7 days.
       build_forecast(forecast_data)
       forecast
@@ -85,14 +85,15 @@ module WeatherMachine
       forecast[:next_seven_days].last.merge!(build_low_temp(low_period))
     end
 
-    def fetch_seven_day_forecast(local_grid)
-      response = RestClient.get(local_grid['properties']['forecast'])
+    def fetch_data(url)
+      response = RestClient.get(url)
       JSON.parse(response.body)
-    end
-
-    def fetch_grid
-      response = RestClient.get("https://api.weather.gov/points/#{latitude},#{longitude}")
-      JSON.parse(response.body)
+    rescue RestClient::NotFound => e
+      raise StandardError, "Couldn't find weather data. Error: #{e.message}"
+    rescue RestClient::InternalServerError => e
+      raise StandardError, "Something went wrong when requesting the weather details. Error: #{e.message}"
+    rescue StandardError => e
+      raise StandardError, "An unexpected error occurred: #{e.message}"
     end
 
     def build_low_temp(period)
@@ -102,7 +103,7 @@ module WeatherMachine
       }
     end
 
-    def build_high_temp(period, name=nil)
+    def build_high_temp(period, name = nil)
       {
         day: name.presence || period['name'],
         highTemperature: period['temperature'],
