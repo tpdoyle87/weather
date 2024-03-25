@@ -3,12 +3,18 @@
 # Service to fetch weather forecasts
 class WeatherForecastService
   def self.fetch_forecast(street: nil, city: nil, state: nil, zip: nil)
-    cache_key = "weather_forecast_#{street}_#{city}_#{state}_#{zip}"
+    cache_key = "weather_forecast_#{[street, city, state, zip].compact.join('_')}"
+    cached = Rails.cache.read(cache_key)
 
-    Rails.cache.fetch(cache_key, expires_in: 30.minutes) do
-      latitude, longitude = GeocodingService.fetch_coordinates(street:, city:, state:, zip:)
+    if cached
+      cached.merge!(cacheHit: true)
+    else
+      latitude, longitude = GeocodingService.fetch_coordinates(street: street, city: city, state: state, zip: zip)
+      forecast_data = full_forecast_fetch(latitude, longitude)
+      forecast_data_with_hit_info = forecast_data.merge(cacheHit: false)
 
-      full_forecast_fetch(latitude, longitude)
+      Rails.cache.write(cache_key, forecast_data_with_hit_info, expires_in: 30.minutes)
+      forecast_data_with_hit_info
     end
   end
 

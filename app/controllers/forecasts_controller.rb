@@ -4,7 +4,6 @@
 class ForecastsController < ApplicationController
   def show
     forecast = WeatherForecastService.fetch_forecast(**forecast_params)
-
     if forecast[:error]
       status = determine_status(forecast[:error])
       render json: { error: forecast[:error] }, status:

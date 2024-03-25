@@ -6,8 +6,6 @@ class GeocodingService
     address = [street, city, state, zip].compact.join(', ')
     return if address.empty?
 
-    Rails.logger.info "Cache miss for address: #{address}"
-
     Geocoder.coordinates(address)
   end
 end
