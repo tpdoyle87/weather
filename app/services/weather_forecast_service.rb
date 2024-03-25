@@ -9,12 +9,11 @@ class WeatherForecastService
     if cached
       cached.merge!(cacheHit: true)
     else
-      latitude, longitude = GeocodingService.fetch_coordinates(street: street, city: city, state: state, zip: zip)
-      forecast_data = full_forecast_fetch(latitude, longitude)
-      forecast_data_with_hit_info = forecast_data.merge(cacheHit: false)
+      latitude, longitude = GeocodingService.fetch_coordinates(street:, city:, state:, zip:)
+      forecast_data = full_forecast_fetch(latitude, longitude).merge(cacheHit: false)
 
-      Rails.cache.write(cache_key, forecast_data_with_hit_info, expires_in: 30.minutes)
-      forecast_data_with_hit_info
+      Rails.cache.write(cache_key, forecast_data, expires_in: 30.minutes)
+      forecast_data
     end
   end
 

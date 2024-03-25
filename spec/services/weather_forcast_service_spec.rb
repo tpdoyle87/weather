@@ -24,7 +24,8 @@ RSpec.describe WeatherForecastService do
       it 'returns an error message' do
         result = described_class.fetch_forecast(street: 'Fake St', city: 'Nowhere', state: 'Anystate', zip: '00000')
 
-        expect(result).to eq({ cacheHit: false, error: 'Latitude and longitude could not be determined from the provided address.' })
+        expect(result).to eq({ cacheHit: false,
+                               error: 'Latitude and longitude could not be determined from the provided address.' })
       end
     end
 
