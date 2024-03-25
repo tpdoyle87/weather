@@ -23,14 +23,14 @@ This Rails application provides real-time weather forecasts based on user-submit
 3. Configure environment variables.  
 ```cp .env.sample .env```  
    Set GOOGLE_API_KEY to your Google Geocoding API key.
+4. Ensure caching is enabled.
+```rails dev:cache```
 
 ## Running the application
 1. Start the server.
 ```rails server```
 2. Access the application in your browser.
 ```http://localhost:3000```
-3. Ensure caching is enabled.
-```rails dev:cache```
 
 ## Usage
 ### Fetching a Forecast
