@@ -22,13 +22,13 @@ RSpec.describe WeatherMachine::WeatherFetcherService, type: :service do
       it 'correctly fetches and processes the weather forecast' do
         service.call
 
-        expect(service.forecast[:current_temperature]).to eq({ temperature: 56, unit: 'F' })
+        expect(service.forecast[:currentTemperature]).to eq({ temperature: 56, unit: 'F' })
       end
 
       it 'correctly fetches and processes the weather forecast for the next 7 days' do
         service.call
 
-        expect(service.forecast[:next_seven_days].size).to eq(7)
+        expect(service.forecast[:nextSevenDays].size).to eq(7)
       end
     end
 
