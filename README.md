@@ -1,4 +1,4 @@
-# Weather Forcast App
+# Weather Forecast App
 
 ## Overview
 This Rails application provides real-time weather forecasts based on user-submitted addresses. Utilizing the GeocodingService to convert addresses into geographic coordinates and the WeatherForecastService to fetch weather data, it offers a streamlined way to access weather information.
@@ -18,20 +18,48 @@ This Rails application provides real-time weather forecasts based on user-submit
 ```git clone git@github.com:tpdoyle87/weather.git ```
 2. install dependencies.
 ```bundle install```
-3. 
+3. Configure environment variables.  
+```cp .env.sample .env```  
+   Set GOOGLE_API_KEY to your Google Geocoding API key.
 
-* System dependencies
+## Running the application
+1. Start the server.
+```rails server```
+2. Access the application in your browser.
+```http://localhost:3000```
+3. Ensure caching is enabled.
+```rails dev:cache```
 
-* Configuration
+## Usage
+### Fetching a Forecast
+- endpoint: `/forecasts`
+- parameters: `street`, `city`, `state`, `zip`
+- Example request:  
+```GET /forecasts?street=1600+Amphitheatre+Parkway&city=Mountain+View&state=CA&zip=94043```
 
-* Database creation
+### Response
+```
+{
+  "currentTemperature": {
+    "temperature": 59,
+    "unit": "F"
+  },
+  "nextSevenDays": [
+    {
+      "day": "Today",
+      "highTemperature": 62,
+      "highTemperatureUnit": "F",
+      "lowTemperature": 48,
+      "lowTemperatureUnit": "F"
+    },...
+    ]}
+```
 
-* Database initialization
+## Development
+### Running Tests
+```bundle exec rspec```
+### Linting
+```bundle exec rubocop```
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

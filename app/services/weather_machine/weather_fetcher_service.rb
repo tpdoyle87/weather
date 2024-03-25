@@ -12,8 +12,8 @@ module WeatherMachine
       @latitude = params[:latitude]
       @longitude = params[:longitude]
       @forecast = {
-        current_temperature: nil,
-        next_seven_days: []
+        currentTemperature: nil,
+        nextSevenDays: []
       }
     end
 
@@ -29,7 +29,7 @@ module WeatherMachine
 
     def build_forecast(forecast_data)
       current_period = forecast_data['properties']['periods'].first
-      forecast[:current_temperature] = {
+      forecast[:currentTemperature] = {
         temperature: current_period['temperature'],
         unit: current_period['temperatureUnit']
       }
@@ -60,12 +60,12 @@ module WeatherMachine
 
       forecast_data['properties']['periods'][start_index..].each_with_index do |period, index|
         if index.even?
-          forecast[:next_seven_days] << build_high_temp(period)
+          forecast[:nextSevenDays] << build_high_temp(period)
         else
-          forecast[:next_seven_days].last.merge!(build_low_temp(period))
+          forecast[:nextSevenDays].last.merge!(build_low_temp(period))
         end
 
-        break if forecast[:next_seven_days].size == 7
+        break if forecast[:nextSevenDays].size == 7
       end
     end
 
@@ -82,8 +82,8 @@ module WeatherMachine
     end
 
     def build_current_day(forecast, high_period, low_period)
-      forecast[:next_seven_days] << build_high_temp(high_period, 'Today')
-      forecast[:next_seven_days].last.merge!(build_low_temp(low_period))
+      forecast[:nextSevenDays] << build_high_temp(high_period, 'Today')
+      forecast[:nextSevenDays].last.merge!(build_low_temp(low_period))
     end
 
     def fetch_data(url)
