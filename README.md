@@ -1,5 +1,7 @@
 # Weather Forecast App
 
+- This application relies on api.weather.gov to retrieve weather information.  
+
 ## Overview
 This Rails application provides real-time weather forecasts based on user-submitted addresses. Utilizing the GeocodingService to convert addresses into geographic coordinates and the WeatherForecastService to fetch weather data, it offers a streamlined way to access weather information.
 
@@ -36,7 +38,8 @@ This Rails application provides real-time weather forecasts based on user-submit
 - parameters: `street`, `city`, `state`, `zip`
 - Example request:  
 ```GET /forecasts?street=1600+Amphitheatre+Parkway&city=Mountain+View&state=CA&zip=94043```
-
+  - If some fields are missing the geocoding will make its best guess but this is limited to weather 
+  available from weather.gov
 ### Response
 ```
 {
